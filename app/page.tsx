@@ -48,7 +48,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>Made with &hearts; for you</p>
+        <p>Made with &hearts; for JuHyeon</p>
       </footer>
     </main>
   );
