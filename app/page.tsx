@@ -34,17 +34,13 @@ export default function Home() {
       <section className="message-section">
         <div className="message-card animate-fade-in-up">
           <p>
-            매일매일 너와 함께하는 모든 순간이
-            <br />
-            나에게는 가장 큰 행복이야.
+            아구약 사랑한단다.
             <br />
             <br />
-            앞으로도 함께 만들어갈
-            <br />
-            우리의 이야기가 기대돼.
+            오래오래 썽질내지 않구 사랑하자꾸나.
             <br />
             <br />
-            사랑해 &#x2661;
+            검은머리 파뿌리 레쭈고 &#x2661;
           </p>
           <div className="message-heart animate-pulse-soft">&hearts;</div>
         </div>
