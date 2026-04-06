@@ -1,15 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 interface Photo {
   src: string;
   caption?: string;
 }
 
-// 사진을 추가하려면 여기에 넣으세요!
-// public/photos/ 폴더에 사진을 넣고 아래 배열에 추가하면 됩니다.
 const photos: Photo[] = [
   { src: "/photos/111.jpg" },
   { src: "/photos/222.jpg" },
@@ -17,16 +14,6 @@ const photos: Photo[] = [
   { src: "/photos/444.jpg" },
   { src: "/photos/555.jpg" },
   { src: "/photos/666.jpg" },
-];
-
-// 사진이 없을 때 보여줄 플레이스홀더
-const placeholders = [
-  { emoji: "\u{1F495}", text: "Photo 1" },
-  { emoji: "\u{1F338}", text: "Photo 2" },
-  { emoji: "\u{1F496}", text: "Photo 3" },
-  { emoji: "\u{2728}", text: "Photo 4" },
-  { emoji: "\u{1F33C}", text: "Photo 5" },
-  { emoji: "\u{1F49E}", text: "Photo 6" },
 ];
 
 export default function Gallery() {
@@ -49,44 +36,30 @@ export default function Gallery() {
   return (
     <>
       <div className="gallery-grid">
-        {hasPhotos
-          ? photos.map((photo, i) => (
-              <div
-                key={i}
-                className="gallery-item animate-fade-in-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
-                onClick={() => openLightbox(i)}
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.caption || `Photo ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  style={{ objectFit: "cover" }}
-                />
-                {photo.caption && (
-                  <div className="gallery-overlay">
-                    <p>{photo.caption}</p>
-                  </div>
-                )}
+        {photos.map((photo, i) => (
+          <div
+            key={i}
+            className="gallery-item animate-fade-in-up"
+            style={{ animationDelay: `${i * 0.1}s` }}
+            onClick={() => openLightbox(i)}
+          >
+            <img
+              src={photo.src}
+              alt={photo.caption || `Photo ${i + 1}`}
+              loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            {photo.caption && (
+              <div className="gallery-overlay">
+                <p>{photo.caption}</p>
               </div>
-            ))
-          : placeholders.map((ph, i) => (
-              <div
-                key={i}
-                className="gallery-item animate-fade-in-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
-              >
-                <div className="photo-placeholder">
-                  {ph.emoji}
-                  <span>{ph.text}</span>
-                </div>
-              </div>
-            ))}
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Lightbox */}
-      {lightboxIndex !== null && hasPhotos && (
+      {lightboxIndex !== null && (
         <div className="lightbox" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={closeLightbox}>
             &times;
@@ -100,12 +73,10 @@ export default function Gallery() {
           >
             &#8249;
           </button>
-          <Image
+          <img
             src={photos[lightboxIndex].src}
             alt={photos[lightboxIndex].caption || ""}
-            width={1200}
-            height={800}
-            style={{ objectFit: "contain", maxWidth: "90vw", maxHeight: "85vh", width: "auto", height: "auto" }}
+            style={{ maxWidth: "90vw", maxHeight: "85vh", objectFit: "contain", borderRadius: "12px" }}
             onClick={(e) => e.stopPropagation()}
           />
           <button
