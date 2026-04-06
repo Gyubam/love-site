@@ -63,16 +63,24 @@ export default function Chat() {
     if (!input.trim() || loading) return;
     setLoading(true);
 
-    const { error } = await supabase.from("messages").insert([
-      {
-        nickname,
-        content: input.trim(),
-      },
-    ]);
+    const { data, error } = await supabase
+      .from("messages")
+      .insert([
+        {
+          nickname,
+          content: input.trim(),
+        },
+      ])
+      .select()
+      .single();
 
     if (error) {
       console.error("메시지 전송 실패:", error);
-      alert("메시지 전송에 실패했어 😢 : " + error.message);
+    } else if (data) {
+      // realtime이 안 될 경우 대비해서 직접 추가 (중복 방지)
+      setMessages((prev) =>
+        prev.some((m) => m.id === data.id) ? prev : [...prev, data]
+      );
     }
 
     setInput("");
