@@ -11,9 +11,12 @@ interface Photo {
 // 사진을 추가하려면 여기에 넣으세요!
 // public/photos/ 폴더에 사진을 넣고 아래 배열에 추가하면 됩니다.
 const photos: Photo[] = [
-  // 예시:
-  // { src: "/photos/1.jpg", caption: "우리의 첫 만남" },
-  // { src: "/photos/2.jpg", caption: "같이 먹은 저녁" },
+  { src: "/photos/111.jpg" },
+  { src: "/photos/222.jpg" },
+  { src: "/photos/333.jpg" },
+  { src: "/photos/444.jpg" },
+  { src: "/photos/555.jpg" },
+  { src: "/photos/666.jpg" },
 ];
 
 // 사진이 없을 때 보여줄 플레이스홀더
