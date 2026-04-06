@@ -20,6 +20,8 @@ export default function Journal() {
   const [passcode, setPasscode] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deletePasscode, setDeletePasscode] = useState("");
 
   const fetchEntries = async () => {
     const { data } = await supabase
@@ -59,6 +61,17 @@ export default function Journal() {
     setPasscode("");
     setError("");
     setShowForm(false);
+    fetchEntries();
+  };
+
+  const handleDelete = async (id: number) => {
+    if (deletePasscode !== PASSCODE) {
+      alert("비밀번호가 틀렸어!");
+      return;
+    }
+    await supabase.from("journal").delete().eq("id", id);
+    setDeleteId(null);
+    setDeletePasscode("");
     fetchEntries();
   };
 
@@ -250,18 +263,79 @@ export default function Journal() {
                 >
                   {entry.title}
                 </h3>
-                <span
-                  style={{
-                    fontSize: "0.78rem",
-                    color: "#c9a6c6",
-                    letterSpacing: "0.05em",
-                    flexShrink: 0,
-                    marginLeft: "1rem",
-                  }}
-                >
-                  {formatDate(entry.created_at)}
-                </span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0, marginLeft: "1rem" }}>
+                  <span
+                    style={{
+                      fontSize: "0.78rem",
+                      color: "#c9a6c6",
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {formatDate(entry.created_at)}
+                  </span>
+                  <button
+                    onClick={() => setDeleteId(deleteId === entry.id ? null : entry.id)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#d4a0cf",
+                      cursor: "pointer",
+                      fontSize: "0.85rem",
+                      padding: "2px 6px",
+                      borderRadius: "6px",
+                      transition: "color 0.2s",
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.color = "#ec4899")}
+                    onMouseOut={(e) => (e.currentTarget.style.color = "#d4a0cf")}
+                  >
+                    &times;
+                  </button>
+                </div>
               </div>
+              {deleteId === entry.id && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0.5rem",
+                    marginBottom: "0.75rem",
+                    alignItems: "center",
+                  }}
+                  className="animate-fade-in"
+                >
+                  <input
+                    type="password"
+                    placeholder="비밀번호"
+                    value={deletePasscode}
+                    onChange={(e) => setDeletePasscode(e.target.value)}
+                    maxLength={4}
+                    style={{
+                      padding: "0.4rem 0.8rem",
+                      border: "1px solid rgba(244, 114, 182, 0.3)",
+                      borderRadius: "8px",
+                      fontSize: "0.85rem",
+                      background: "rgba(255, 255, 255, 0.5)",
+                      outline: "none",
+                      color: "#4a3548",
+                      width: "100px",
+                      fontFamily: "Noto Sans KR, sans-serif",
+                    }}
+                  />
+                  <button
+                    onClick={() => handleDelete(entry.id)}
+                    style={{
+                      background: "#ec4899",
+                      color: "white",
+                      border: "none",
+                      borderRadius: "8px",
+                      padding: "0.4rem 0.8rem",
+                      fontSize: "0.8rem",
+                      cursor: "pointer",
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              )}
               <p
                 style={{
                   fontSize: "0.92rem",
