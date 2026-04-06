@@ -1,6 +1,7 @@
 import DdayCounter from "./components/DdayCounter";
 import Gallery from "./components/Gallery";
 import FloatingHearts from "./components/FloatingHearts";
+import Journal from "./components/Journal";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="animate-fade-in-up">
-          <h1 className="hero-title">For You</h1>
+          <h1 className="hero-title">아가주현</h1>
           <p className="hero-subtitle">우리의 모든 순간이 소중해</p>
         </div>
 
@@ -28,6 +29,14 @@ export default function Home() {
         <p className="section-subtitle">함께한 우리의 순간들</p>
         <div className="section-divider" />
         <Gallery />
+      </section>
+
+      {/* Journal Section */}
+      <section style={{ padding: "4rem 1rem 5rem" }}>
+        <h2 className="section-title animate-fade-in">Our Diary</h2>
+        <p className="section-subtitle">우리의 하루 일지</p>
+        <div className="section-divider" />
+        <Journal />
       </section>
 
       {/* Message Section */}

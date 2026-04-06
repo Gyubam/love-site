@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "For You \u2661",
+  title: "아가주현 \u2661",
   description: "우리의 소중한 순간들",
 };
 
