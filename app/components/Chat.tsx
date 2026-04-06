@@ -63,10 +63,17 @@ export default function Chat() {
     if (!input.trim() || loading) return;
     setLoading(true);
 
-    await supabase.from("messages").insert({
-      nickname,
-      content: input.trim(),
-    });
+    const { error } = await supabase.from("messages").insert([
+      {
+        nickname,
+        content: input.trim(),
+      },
+    ]);
+
+    if (error) {
+      console.error("메시지 전송 실패:", error);
+      alert("메시지 전송에 실패했어 😢 : " + error.message);
+    }
 
     setInput("");
     setLoading(false);
