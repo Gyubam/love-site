@@ -2,6 +2,7 @@ import DdayCounter from "./components/DdayCounter";
 import Gallery from "./components/Gallery";
 import FloatingHearts from "./components/FloatingHearts";
 import Journal from "./components/Journal";
+import Chat from "./components/Chat";
 
 export default function Home() {
   return (
@@ -59,6 +60,8 @@ export default function Home() {
       <footer className="footer">
         <p>Made with &hearts; for JuHyeon</p>
       </footer>
+
+      <Chat />
     </main>
   );
 }
